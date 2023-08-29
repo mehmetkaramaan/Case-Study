@@ -15,21 +15,21 @@ int main() {
     // HTTP client baþlat
     CURL* curl = curl_easy_init();
     if (curl) {
-        // HTTP isteði hazýrla
+     
         curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1);
 
-        // Response verilerini almak için bir string kullan
+        
         std::string response_data;
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response_data);
 
-        // HTTP isteði gönder
+        
         CURLcode res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
             std::cerr << "Curl error: " << curl_easy_strerror(res) << std::endl;
         } else {
-            // HTTP status code'unu al
+            
             long http_status_code = 0;
             curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_status_code);
 
@@ -40,7 +40,7 @@ int main() {
                 // Response içeriði kontrolü
                 std::cout << "Response content:\n" << response_data << std::endl;
 
-                // JSON parsing ve daha fazla test senaryosu eklenebilir
+                
             }
         }
 
