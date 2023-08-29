@@ -1,0 +1,35 @@
+npm install playwright
+//Playwright'ı proje klasörünüze eklemek için terminal ile komutu eklenir:
+
+Javascript kodu: 
+
+const { chromium } = require('playwright');
+
+(async () => {
+  const browser = await chromium.launch();
+  const context = await browser.newContext();
+
+  const page = await context.newPage();
+  await page.goto('https://flights-app.pages.dev/');
+
+  // Search Test
+  await page.fill('#from', 'Istanbul');
+  await page.fill('#to', 'Istanbul'); // Bug: Same values should not be allowed
+  await page.click('#search');
+  await page.waitForSelector('.flight-item');
+
+  // Listeleme Test
+  const flightCountText = await page.textContent('.flight-count');
+  const itemCount = Number(flightCountText.match(/\d+/)[0]);
+  const flightItems = await page.$$('.flight-item');
+  
+  if (itemCount === flightItems.length) {
+    console.log('List count matches with found items.');
+  } else {
+    console.error('List count does not match with found items.');
+  }
+
+  await browser.close();
+})();
+
+
