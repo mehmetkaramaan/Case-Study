@@ -2,7 +2,7 @@
 #include <curl/curl.h>
 #include <nlohmann/json.hpp>
 
-using json = nlohmann::json; //using json = nlohmann::json; ifadesi, nlohmann/json kütüphanesinde tanýmlanan json tipini kendi kodumuzda daha kýsa bir isimle kullanabiemizi saðlayan bir tür "aliastýr" veya "typedef"dir.
+using json = nlohmann::json; 
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
